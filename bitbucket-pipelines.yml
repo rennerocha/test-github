@@ -11,6 +11,7 @@ definitions:
 
     - step: &run-test
         script:
+          - *install-package
           - pytest tests.py
 
 pipelines:
