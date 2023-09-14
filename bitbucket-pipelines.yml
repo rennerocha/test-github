@@ -8,9 +8,12 @@ definitions:
           - pip
         script:
           - pip install pytest
+
+    - step: &run-test
+        script:
           - pytest tests.py
 
 pipelines:
   default:
-    - parallel:
-      - step: *install-package
+    - step: *install-package
+    - step: *run-test
