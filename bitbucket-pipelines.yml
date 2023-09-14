@@ -10,5 +10,6 @@ definitions:
           - pip install cookiecutter
           - echo $(cookiecutter --version)
 
+pipelines:
   main:
     - step: *install-package
