@@ -1,0 +1,14 @@
+image: python:3.10
+
+definitions:
+  steps:
+    - step: &install-package
+        name: Backend Tests
+        caches:
+          - pip
+        script:
+          - pip install cookiecutter
+          - echo $(cookiecutter --version)
+
+  main:
+    - step: *install-package
