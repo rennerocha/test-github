@@ -7,10 +7,8 @@ definitions:
         caches:
           - pip
         script:
-          - pip install cookiecutter
-          - echo $(cookiecutter --version)
-
-
+          - pip install pytest
+          - pytest .
 
 pipelines:
   default:
