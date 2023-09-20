@@ -1,2 +1,2 @@
 def test_sum():
-    assert 1 + 2  == 3
+    assert 1 + 2 == 3
