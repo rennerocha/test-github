@@ -1,0 +1,38 @@
+version: '3.7'
+volumes:
+  local_postgres_data_test_project: {}
+  local_postgres_data_test_project_backups: {}
+services:
+  db:
+    image: 'postgres:14'
+    volumes:
+      - 'local_postgres_data_test_project:/var/lib/postgresql/data'
+      - 'local_postgres_data_test_project_backups:/backups'
+    env_file:
+      - backend/local/environment
+  django:
+    image: 'test_project_local_django:dev'
+    command: 'python manage.py runserver 0.0.0.0:8000'
+    # command: 'gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker'
+    volumes:
+      - './backend:/app/src:z'
+    env_file:
+      - backend/local/environment
+    depends_on:
+      - migrate
+      - mailhog
+      
+  migrate:
+    image: 'test_project_local_django:dev'
+    command: python manage.py migrate
+    volumes:
+      - './backend:/app/src:z'
+    env_file:
+      - backend/local/environment
+    depends_on:
+      - db
+  
+  
+  mailhog:
+    image: 'mailhog/mailhog:v1.0.0'
+  
