@@ -57,6 +57,3 @@ pipelines:
   main:
     - parallel:
       - step: *check-lint-and-formatting
-
-  custom:
-    - step: *deploy-to-prod
