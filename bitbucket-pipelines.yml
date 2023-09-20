@@ -19,11 +19,10 @@ definitions:
         caches:
           - pip
         script:
-          - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-          - apt-get update
-          - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client-12 postgresql-client-common
+          # - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+          # - apt-get update
+          # - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client-12 postgresql-client-common
           - export DATABASE_URL=postgres://test_project:CHANGEME@127.0.0.1:5432/test_project
-          
           - cd backend
           - pip --disable-pip-version-check install --no-deps -r requirements/production.txt -r requirements/base.txt
           - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt

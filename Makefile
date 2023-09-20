@@ -144,9 +144,6 @@ down: ## shut down the cluster
 down-clean: ## Remove containers for services not defined in the docker-compose.yml file
 	@docker-compose -f ./docker-compose.yml down --remove-orphans
 
-test:  ## Run unit tests with PyTest in a running container
-	@docker-compose exec django pytest
-
 shell:  ## Shell into the running Django container
 	@docker-compose exec django /bin/bash
 
