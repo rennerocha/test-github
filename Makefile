@@ -57,7 +57,7 @@ check-lint-and-formatting:  ## Execute check of lint and formatting using existi
 	pre-commit run -a
 
 check-lint-and-test-frontend:  ## Frontend Lint & Typecheck & Test
-	cd /front-end; \
+	cd frontend; \
 	npm install --legacy-peer-deps; \
 	npm run lint-src; \
 	npm run typecheck; \
