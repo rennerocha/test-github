@@ -30,7 +30,7 @@ describe('Card', () => {
     it('should have empty heading, body and footer', () => {
       const { getByTestId } = render(<Card />)
 
-      const heading = getByTestId('CardHeading')
+      const heading = getByTestId('erro')
       const body = getByTestId('CardBody')
       const footer = getByTestId('CardFooter')
 
