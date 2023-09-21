@@ -1,0 +1,15 @@
+version: '3.7'
+# below are the default ports, change the first port to avoid local conflicts
+services:
+  db:
+    ports:
+      - '5433:5432'
+  django:
+    ports:
+      - '8009:8000'
+  frontend:
+    ports:
+      - '3000:3000'
+  mailhog:
+    ports:
+      - '8025:8025'

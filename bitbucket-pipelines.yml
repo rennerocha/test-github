@@ -1,0 +1,59 @@
+image: python:3.10
+
+definitions:
+  services:
+    docker:
+      memory: 3072
+    postgres:
+      image: postgres:latest
+      environment:
+        POSTGRES_DB: my_awesome_sixie_project
+        POSTGRES_USER: my_awesome_sixie_project
+        POSTGRES_PASSWORD: CHANGEME
+    redis:
+      image: redis:stable
+
+  steps:
+    - step: &backend-tests
+        name: Backend Tests
+        caches:
+          - pip
+        script:
+          - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+          - apt-get update
+          - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client postgresql-client-common
+          - export DATABASE_URL=postgres://my_awesome_sixie_project:CHANGEME@127.0.0.1:5432/my_awesome_sixie_project
+          
+          - cd backend
+          - pip --disable-pip-version-check install --no-deps -r requirements/production.txt -r requirements/base.txt
+          - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
+          - pytest --cov=./ --cov-report html --ds=config.settings.test
+        services:
+          - redis
+          - postgres
+
+    - step: &check-lint-and-formatting
+        name: Check lint and formatting
+        caches:
+          - pip
+        script:
+          - make check-lint-and-test-frontend
+
+    
+    - step: &check-lint-and-test-frontend
+        name: Frontend Lint & Typecheck & Test
+        image: node:16-bullseye
+        caches:
+          - node
+        script:
+          - make check-lint-and-test-frontend
+    
+
+pipelines:
+  default:
+    - parallel:
+      - step: *check-lint-and-formatting
+      
+      - step: *check-lint-and-test-frontend
+      
+      - step: *backend-tests
