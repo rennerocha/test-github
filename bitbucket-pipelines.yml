@@ -23,7 +23,6 @@ definitions:
           - apt-get update
           - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client postgresql-client-common
           - export DATABASE_URL=postgres://my_awesome_sixie_project:CHANGEME@127.0.0.1:5432/my_awesome_sixie_project
-          
           - cd backend
           - pip --disable-pip-version-check install --no-deps -r requirements/production.txt -r requirements/base.txt
           - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
@@ -37,7 +36,7 @@ definitions:
         caches:
           - pip
         script:
-          - make check-lint-and-test-frontend
+          - make check-lint-and-formatting
 
     
     - step: &check-lint-and-test-frontend
@@ -53,7 +52,5 @@ pipelines:
   default:
     - parallel:
       - step: *check-lint-and-formatting
-      
       - step: *check-lint-and-test-frontend
-      
       - step: *backend-tests
