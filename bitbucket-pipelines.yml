@@ -19,7 +19,7 @@ definitions:
         caches:
           - pip
         script:
-          - curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+          - echo "Hey"
           - apt-get update
           - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client postgresql-client-common
           - export DATABASE_URL=postgres://my_awesome_sixie_project:CHANGEME@127.0.0.1:5432/my_awesome_sixie_project
