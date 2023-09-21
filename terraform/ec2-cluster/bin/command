@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ssh -i ~/.ssh/test_project_default_key ubuntu@$(./bin/ip) $@
