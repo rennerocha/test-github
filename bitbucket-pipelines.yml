@@ -27,7 +27,6 @@ definitions:
           - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
           - pytest --cov=./ --cov-report html --ds=config.settings.test
         services:
-          - docker
           - postgres
           - redis
 
