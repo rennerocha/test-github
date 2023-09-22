@@ -66,10 +66,8 @@ check-lint-and-test-frontend:  ## Frontend Lint & Typecheck & Test
 	npm run typecheck; \
 	npm run test
 
-
 backend-test:  ## Execute backend tests
 	@docker-compose exec django pytest
-
 
 frontend-test:  ## Execute frontend tests
 	cd frontend; \
@@ -77,7 +75,6 @@ frontend-test:  ## Execute frontend tests
 	npm run test
 
 test: backend-test frontend-test  ## Run all tests
-
 
 sandbox-release: ## create release tag and push to master
 	@echo "release tag: $(RELEASE_TAG)"
