@@ -28,8 +28,9 @@ definitions:
           - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
           - pytest --cov=./ --cov-report html --ds=config.settings.test
         services:
-          - redis
+          - docker
           - postgres
+          - redis
 
     - step: &check-lint-and-formatting
         name: Check lint and formatting
