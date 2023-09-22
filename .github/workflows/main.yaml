@@ -48,11 +48,11 @@ jobs:
         with:
           python-version: "3.10"
       - name: Run backend tests
-        run:
-          - cd backend
-          - pip --disable-pip-version-check install --no-deps -r requirements/production.txt
-          - pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
-          - pytest --cov=./ --cov-report html --ds=config.settings.test
+        run: |
+          cd backend
+          pip --disable-pip-version-check install --no-deps -r requirements/production.txt
+          pip --disable-pip-version-check install --no-deps -r requirements/tests.txt
+          pytest --cov=./ --cov-report html --ds=config.settings.test
         env:
           DATABASE_URL: postgres://my_awesome_sixie_project:TESTPASSWORD@127.0.0.1:5432/my_awesome_sixie_project
           POSTGRES_HOST: localhost
