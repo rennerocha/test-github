@@ -24,6 +24,8 @@ jobs:
         run: make check-lint-and-test-frontend
 
   backend-test:
+    runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres
@@ -31,13 +33,15 @@ jobs:
           POSTGRES_DB: my_awesome_sixie_project
           POSTGRES_USER: my_awesome_sixie_project
           POSTGRES_PASSWORD: TESTPASSWORD
+        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
 
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
