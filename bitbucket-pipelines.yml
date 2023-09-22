@@ -50,7 +50,6 @@ definitions:
 
 pipelines:
   default:
-    - parallel:
-      - step: *check-lint-and-formatting
-      - step: *check-lint-and-test-frontend
-      - step: *backend-tests
+    - step: *check-lint-and-formatting
+    - step: *check-lint-and-test-frontend
+    - step: *backend-tests

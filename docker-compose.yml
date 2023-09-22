@@ -2,14 +2,18 @@ version: '3.7'
 volumes:
   local_postgres_data_my_awesome_sixie_project: {}
   local_postgres_data_my_awesome_sixie_project_backups: {}
+
 services:
   db:
-    image: 'postgres:14'
+    image: 'postgres:16-bullseye'
     volumes:
       - 'local_postgres_data_my_awesome_sixie_project:/var/lib/postgresql/data'
       - 'local_postgres_data_my_awesome_sixie_project_backups:/backups'
     env_file:
       - backend/local/environment
+    ports:
+      - '5432:5432'
+
   django:
     image: 'my_awesome_sixie_project_local_django:dev'
     command: 'python manage.py runserver 0.0.0.0:8000'
@@ -19,6 +23,7 @@ services:
     env_file:
       - backend/local/environment
     depends_on:
+      - db
       - migrate
       - mailhog
       
