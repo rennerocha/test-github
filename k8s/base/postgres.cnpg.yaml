@@ -1,0 +1,19 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  labels:
+    app: the_project
+    tier: db
+    environment: dev
+spec:
+  instances: 1
+
+  envFrom:
+  - configMapRef:
+      name: django-config
+
+  primaryUpdateStrategy: unsupervised
+
+  storage:
+    size: 2Gi

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: the-project
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: the-project-sandbox
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    additionalArguments:
+    - "--log.level=DEBUG"
+    - "--certificatesresolvers.letsencrypt.acme.email=joe-sixie@example.com"
+    - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+    - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
