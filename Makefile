@@ -66,10 +66,11 @@ check-lint-and-test-frontend:  ## Frontend Lint & Typecheck & Test
 	npm run typecheck; \
 	npm run test
 
-
 backend-test:  ## Execute backend tests
-	@docker-compose exec django pytest
-
+	cd backend; \
+	pip --disable-pip-version-check install --no-deps -r requirements/production.txt; \
+	pip --disable-pip-version-check install --no-deps -r requirements/tests.txt; \
+	pytest --cov=./ --cov-report html --ds=config.settings.test
 
 frontend-test:  ## Execute frontend tests
 	cd frontend; \
