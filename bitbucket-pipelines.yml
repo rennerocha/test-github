@@ -8,7 +8,6 @@ definitions:
     postgres:
       image: postgres:latest
       environment:
-        POSTGRES_HOST: postgres
         POSTGRES_DB: my_awesome_sixie_project
         POSTGRES_USER: my_awesome_sixie_project
         POSTGRES_PASSWORD: TESTPASSWORD
@@ -23,10 +22,8 @@ definitions:
         caches:
           - pip
         script:
-          - export DATABASE_URL=postgres://my_awesome_sixie_project:TESTPASSWORD@postgres:5432/my_awesome_sixie_project
-
+          - export DATABASE_URL=postgres://my_awesome_sixie_project:TESTPASSWORD@localhost:5432/my_awesome_sixie_project
           - export CELERY_BROKER_URL=redis://127.0.0.1:6379/0
-
           - make backend-test
 
         services:
