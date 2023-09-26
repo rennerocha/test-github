@@ -48,3 +48,18 @@ Thumbs.db
 *.mov
 *.wmv
 
+docker-compose.override.yml
+
+# Environment files
+env
+
+# vs code
+.vscode/
+.history/
+
+# terraform files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
