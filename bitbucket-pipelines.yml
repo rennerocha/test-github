@@ -14,7 +14,7 @@ definitions:
         POSTGRES_PASSWORD: TESTPASSWORD
 
     redis:
-      image: redis:stable
+      image: redis:latest
 
 
   steps:
