@@ -1,0 +1,55 @@
+image: python:3.10
+
+definitions:
+  services:
+    docker:
+      memory: 3072
+    postgres:
+      image: postgres:latest
+      environment:
+        POSTGRES_DB: my_awesome_sixie_project
+        POSTGRES_USER: my_awesome_sixie_project
+        POSTGRES_PASSWORD: TESTPASSWORD
+
+
+  steps:
+    - step: &backend-tests
+        name: Backend Tests
+        caches:
+          - pip
+        script:
+          - apt-get update
+          - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client postgresql-client-common
+          - export DATABASE_URL=postgres://my_awesome_sixie_project:TESTPASSWORD@127.0.0.1:5432/my_awesome_sixie_project
+
+          - make backend-test
+
+        services:
+
+          - postgres
+
+    - step: &check-lint-and-formatting
+        name: Check lint and formatting
+        caches:
+          - pip
+        script:
+          - make check-lint-and-formatting
+
+
+    - step: &check-lint-and-test-frontend
+        name: Frontend Lint & Typecheck & Test
+        image: node:16-bullseye
+        caches:
+          - node
+        script:
+          - make check-lint-and-test-frontend
+
+
+pipelines:
+  default:
+    - parallel:
+      - step: *check-lint-and-formatting
+
+      - step: *check-lint-and-test-frontend
+
+      - step: *backend-tests
