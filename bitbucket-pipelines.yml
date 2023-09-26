@@ -18,14 +18,9 @@ definitions:
         caches:
           - pip
         script:
-          - apt-get update
-          - apt-get install --no-install-recommends -y build-essential ca-certificates curl gettext gnupg libpq-dev libffi-dev postgresql-client postgresql-client-common
           - export DATABASE_URL=postgres://my_awesome_sixie_project:TESTPASSWORD@127.0.0.1:5432/my_awesome_sixie_project
-
           - make backend-test
-
         services:
-
           - postgres
 
     - step: &check-lint-and-formatting
