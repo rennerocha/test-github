@@ -62,3 +62,4 @@ jobs:
           DATABASE_URL: postgres://my_awesome_sixie_project:TESTPASSWORD@postgres:5432/my_awesome_sixie_project
           POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
+          CELERY_BROKER_URL: redis://127.0.0.1:6379/0
