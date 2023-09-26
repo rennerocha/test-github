@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ssh -i ~/.ssh/my_awesome_sixie_project_default_key ubuntu@$(./bin/ip) $@
