@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery
+  labels:
+    app: my_awesome_sixie_project
+    tier: celery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my_awesome_sixie_project
+      tier: celery
+  template:
+    metadata:
+      labels:
+        app: my_awesome_sixie_project
+        tier: celery
+    spec:
+      containers:
+        - name: celeryworker
+          image: my_awesome_sixie_project_local_django:latest
+          command: ["celery", "-A", "my_awesome_sixie_project", "worker", "-E", "-l", "info"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+        - name: celerybeat
+          image: my_awesome_sixie_project_local_django:latest
+          command: ["celery", "-A", "my_awesome_sixie_project", "beat"]
+          envFrom:
+            - configMapRef:
+                name: django-config
+        - name: flower
+          image: my_awesome_sixie_project_local_django:latest
+          command: ["celery", "-A", "my_awesome_sixie_project", "flower"]
+          envFrom:
+            - configMapRef:
+                name: django-config
